@@ -5,6 +5,7 @@ import ListItem from "./ListItem";
 const useStyles = makeStyles({
   listingContainer: {
     backgroundImage: "linear-gradient(to top, #171717, #171717)",
+    minHeight: "100vh",
   },
   cardContent: {
     display: "flex",
@@ -12,6 +13,7 @@ const useStyles = makeStyles({
     margin: "0 auto",
     paddingTop: "5%",
     flexWrap: "wrap",
+    paddingTop: "21%",
   },
 });
 

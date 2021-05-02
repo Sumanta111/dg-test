@@ -56,7 +56,6 @@ class ListingContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  listingItems: state.listing.contentList,
   currentPageIndex: state.listing.currentPageIndex,
   totalContentItems: state.listing.totalContentItems,
 });

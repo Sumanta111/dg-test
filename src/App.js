@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core";
 import ListingContainer from "./screens/ListingContainer";
+import SearchContainer from "./screens/SearchContainer";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles({
   container: {},
@@ -30,15 +32,12 @@ const useStyles = makeStyles({
     height: 25,
     width: 25,
   },
-  searchbar: {
-    background: "linear-gradient(180deg,#000,#212121)",
-    boxShadow: "0 4px 4px rgb(0 0 0 / 25%)",
-  },
 });
 
-const App = () => {
+const App = (props) => {
   const classes = useStyles();
   const [searchbarVisibility, toggleSearchBarVisibility] = useState(false);
+  const { listingItems, searchItems } = props;
   return (
     <div className={classes.container}>
       <div className={classes.navContainer}>
@@ -59,16 +58,23 @@ const App = () => {
           </div>
         )}
         {searchbarVisibility && (
-          <div className={classes.searchbar}>
-            <form>
-              <input placeholder="test" />
-            </form>
-          </div>
+          <SearchContainer
+            toggleSearchBarVisibility={() =>
+              toggleSearchBarVisibility(!searchbarVisibility)
+            }
+          />
         )}
       </div>
-      {!searchbarVisibility && <ListingContainer />}
+      <ListingContainer
+        listingItems={!searchbarVisibility ? listingItems : searchItems}
+      />
     </div>
   );
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  listingItems: state.listing.contentList,
+  searchItems: state.listing.searchResults,
+});
+
+export default connect(mapStateToProps)(App);
